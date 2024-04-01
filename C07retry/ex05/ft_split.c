@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: donghank <donghank@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/30 17:27:54 by donghank          #+#    #+#             */
-/*   Updated: 2024/04/01 09:30:15 by donghank         ###   ########.fr       */
+/*   Created: 2024/04/01 14:27:35 by donghank          #+#    #+#             */
+/*   Updated: 2024/04/01 14:35:21 by donghank         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,6 @@ int	is_sep(char c, char *charset)
 	return (0);
 }
 
-char	*ft_strdup(char *src)
-{
-	char	*new_src;
-	int		i;
-
-	new_src = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
-	if (!new_src)
-		return (NULL);
-	i = 0;
-	while (src[i] != '\0')
-	{
-		new_src[i] = src[i];
-		i++;
-	}
-	new_src[i] = '\0';
-	return (new_src);
-}
-
 int	word_count(char *str, char *charset)
 {
 	int	count;
@@ -77,25 +59,31 @@ int	word_count(char *str, char *charset)
 
 char	**ft_split(char *str, char *charset)
 {
-	int		count;
 	char	**strs;
 	int		i;
+	int		j;
+	int		count;
 
 	count = word_count(str, charset);
 	strs = (char **)malloc(sizeof(char *) * (count + 1));
 	if (!strs)
 		return (NULL);
-	while (*str != '\0')
+	i = 0;
+	while (*str != '\0' && i < count)
 	{
-		i = 0;
-		if (!is_sep(*str, charset))
-		{
-			strs[i++] = ft_strdup(str);
-			while (!is_sep(*str, charset) && *str != '\0')
-				str++;
-		}
-		else
+		while (*str != '\0' && is_sep(*str, charset))
 			str++;
+		j = 0;
+		while (str[j] != '\0' && !is_sep(str[j], charset))
+			j++;
+		if (j > 0)
+		{
+			strs[i] = (char *)malloc(sizeof(char) * (j + 1));
+			j = 0;
+			while (*str != '\0' && !is_sep(*str, charset))
+				strs[i][j++] = *str++;
+			strs[i++][j] = '\0';
+		}
 	}
 	strs[i] = 0;
 	return (strs);
