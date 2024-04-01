@@ -6,7 +6,7 @@
 /*   By: donghank <donghank@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:27:35 by donghank          #+#    #+#             */
-/*   Updated: 2024/04/01 14:35:21 by donghank         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:29:35 by donghank         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,30 @@ int	word_count(char *str, char *charset)
 	return (count);
 }
 
+char	*ft_strncpy(char *dest, char *src, int n)
+{
+	int	i;
+
+	i = 0;
+	while (src[i] != '\0' && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
+}
+
 char	**ft_split(char *str, char *charset)
 {
 	char	**strs;
 	int		i;
-	int		j;
 	int		count;
+	int		j;
 
 	count = word_count(str, charset);
 	strs = (char **)malloc(sizeof(char *) * (count + 1));
@@ -79,11 +97,13 @@ char	**ft_split(char *str, char *charset)
 		if (j > 0)
 		{
 			strs[i] = (char *)malloc(sizeof(char) * (j + 1));
-			j = 0;
-			while (*str != '\0' && !is_sep(*str, charset))
-				strs[i][j++] = *str++;
-			strs[i++][j] = '\0';
+			if (!strs[i])
+				return (NULL);
+			ft_strncpy(strs[i], str, j);
+			strs[i][j] = '\0';
+			str += j;
 		}
+		i++;
 	}
 	strs[i] = 0;
 	return (strs);
