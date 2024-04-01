@@ -6,7 +6,7 @@
 /*   By: donghank <donghank@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 14:27:35 by donghank          #+#    #+#             */
-/*   Updated: 2024/04/01 16:29:35 by donghank         ###   ########.fr       */
+/*   Updated: 2024/04/01 17:51:50 by donghank         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,11 @@ char	**ft_split(char *str, char *charset)
 {
 	char	**strs;
 	int		i;
-	int		count;
 	int		j;
+	int		count;
 
 	count = word_count(str, charset);
 	strs = (char **)malloc(sizeof(char *) * (count + 1));
-	if (!strs)
-		return (NULL);
 	i = 0;
 	while (*str != '\0' && i < count)
 	{
@@ -97,13 +95,9 @@ char	**ft_split(char *str, char *charset)
 		if (j > 0)
 		{
 			strs[i] = (char *)malloc(sizeof(char) * (j + 1));
-			if (!strs[i])
-				return (NULL);
-			ft_strncpy(strs[i], str, j);
-			strs[i][j] = '\0';
+			ft_strncpy(strs[i++], str, j)[j] = '\0';
 			str += j;
 		}
-		i++;
 	}
 	strs[i] = 0;
 	return (strs);
