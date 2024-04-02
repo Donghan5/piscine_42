@@ -17,8 +17,6 @@ int main(int argc, char **argv)
     int i;
 
     i = 0;
-    if (argc != 4)
-        write(1, "\n", 1);
     if (argc == 4)
     {
         if (ft_strlen(argv[2]) == 1 && ft_strlen(argv[3]) == 1)
