@@ -2,7 +2,12 @@
 
 unsigned char	swap_bits(unsigned char octet)
 {
-	return (octet >> 4);
+	unsigned char	octa;
+	unsigned char	octb;
+
+	octa = (octet >> 4);
+	octb = (octet << 4);
+	return (octa | octb);
 }
 
 #include <stdio.h>
