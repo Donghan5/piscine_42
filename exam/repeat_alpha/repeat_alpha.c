@@ -1,5 +1,5 @@
 #include <unistd.h>
-// this one is not correct !
+// 다시 보기 특히 알파벳 인덱스 설정하는 부분에 있어서 주의하기 아이디어는 a를 뺀다음에 1을 더하는 것
 void    ft_putchar(char c)
 {
     write(1, &c, 1);
